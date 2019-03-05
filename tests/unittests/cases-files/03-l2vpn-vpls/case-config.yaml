@@ -1,0 +1,273 @@
+#
+restconf_base: /restconf/data
+rest_base: /api/running
+
+# to store the device configs
+testdir1: 03-l2vpn-vpls/ios_device_1
+testdir2: 03-l2vpn-vpls/ios_device_2
+
+junos_device_1: pe2-juniper-mx104-0
+ios_device_1: pe1-cisco-asr903-0
+ios_device_2: pe3-cisco-asr920-0
+
+service:
+  l2vpn:
+    createPayload:
+      vpls_single_vlan: |
+        {
+          "l2vpn:l2vpn": [
+                {
+                  "service-name": "customer-xyz-1234",
+                  "l2vpn-type": "VPLS-EVPLAN",
+                  "vpls-id": 400,
+                  "service-id": 300,
+                  "members": [
+                    {
+                      "device-name": "pe1-cisco-asr903-0",
+                      "interface-type-cisco": "GigabitEthernet",
+                      "gig-interface-name": "0/0/5",
+                      "intf-description": "MyInterfaceDescription",
+                      "ip-address": "8.8.8.8",
+                      "si-description": "MyServiceInstanceDescription",
+                      "vlan-id": 100
+                    },
+                    {
+                      "device-name": "pe2-juniper-mx104-0",
+                      "interface-name-juniper": "ge-0/0/2",
+                      "intf-description": "MyInterfaceDescription",
+                      "ip-address": "172.162.1.4",
+                      "si-description": "MyServiceInstanceDescription",
+                      "vlan-id": 100
+                    },
+                    {
+                      "device-name": "pe3-cisco-asr920-0",
+                      "interface-type-cisco": "GigabitEthernet",
+                      "gig-interface-name": "0/1",
+                      "intf-description": "MyInterfaceDescription",
+                      "ip-address": "195.185.1.2",
+                      "si-description": "MyServiceInstanceDescription",
+                      "vlan-id": 100
+                    }
+                  ]
+                }
+              ]
+        }
+      vpls_multiple_vlan: |
+        {
+          "l2vpn:l2vpn": [
+                {
+                  "service-name": "BLA-BLA-1234-xyz",
+                  "l2vpn-type": "VPLS-EVPLAN",
+                  "vpls-id": 400,
+                  "service-id": 300,
+                  "members": [
+                    {
+                      "device-name": "pe1-cisco-asr903-0",
+                      "interface-type-cisco": "GigabitEthernet",
+                      "gig-interface-name": "0/0/5",
+                      "intf-description": "MyInterfaceDescription",
+                      "ip-address": "8.8.8.8",
+                      "si-description": "MyServiceInstanceDescription",
+                      "vlan-id": 100
+                    },
+                    {
+                      "device-name": "pe2-juniper-mx104-0",
+                      "interface-name-juniper": "ge-0/0/2",
+                      "intf-description": "MyInterfaceDescription",
+                      "ip-address": "172.162.1.4",
+                      "si-description": "MyServiceInstanceDescription",
+                      "vlan-id": 200
+                    },
+                    {
+                      "device-name": "pe3-cisco-asr920-0",
+                      "interface-type-cisco": "GigabitEthernet",
+                      "gig-interface-name": "0/1",
+                      "intf-description": "MyInterfaceDescription",
+                      "ip-address": "195.185.1.2",
+                      "si-description": "MyServiceInstanceDescription",
+                      "vlan-id": 300
+                    }
+                  ]
+                }
+              ]
+        }
+      vplsOneDevice: |
+        {
+          "l2vpn:l2vpn": [
+                {
+                  "service-name": "BLA-BLA-1234-xyz",
+                  "l2vpn-type": "VPLS-EVPLAN",
+                  "vpls-id": 400,
+                  "service-id": 300,
+                  "members": [
+                    {
+                      "device-name": "pe1-cisco-asr903-0",
+                      "interface-type-cisco": "GigabitEthernet",
+                      "gig-interface-name": "0/0/5",
+                      "intf-description": "MyInterfaceDescription",
+                      "ip-address": "8.8.8.8",
+                      "si-description": "MyServiceInstanceDescription",
+                      "vlan-id": 100
+                    }
+                  ]
+                }
+              ]
+        }
+      invalidIP: |
+        {
+          "l2vpn:l2vpn": [
+                {
+                  "service-name": "BLA-BLA-1234-xyz",
+                  "l2vpn-type": "VPLS-EVPLAN",
+                  "vpls-id": 400,
+                  "service-id": 300,
+                  "members": [
+                    {
+                      "device-name": "pe1-cisco-asr903-0",
+                      "interface-type-cisco": "GigabitEthernet",
+                      "gig-interface-name": "0/0/5",
+                      "intf-description": "MyInterfaceDescription",
+                      "ip-address": "17.16.14.18",
+                      "si-description": "MyServiceInstanceDescription",
+                      "vlan-id": 100
+                    },
+                    {
+                      "device-name": "pe2-juniper-mx104-0",
+                      "interface-name-juniper": "ge-0/0/2",
+                      "intf-description": "MyInterfaceDescription",
+                      "ip-address": "172.162.1.4",
+                      "si-description": "MyServiceInstanceDescription",
+                      "vlan-id": 200
+                    },
+                    {
+                      "device-name": "pe3-cisco-asr920-0",
+                      "interface-type-cisco": "GigabitEthernet",
+                      "gig-interface-name": "0/1",
+                      "intf-description": "MyInterfaceDescription",
+                      "ip-address": "195.185.1.2",
+                      "si-description": "MyServiceInstanceDescription",
+                      "vlan-id": 300
+                    }
+                  ]
+                }
+              ]
+        }
+      invalidDevice: |
+        {
+          "l2vpn:l2vpn": [
+                {
+                  "service-name": "BLA-BLA-1234-xyz",
+                  "l2vpn-type": "VPLS-EVPLAN",
+                  "vpls-id": 400,
+                  "service-id": 300,
+                  "members": [
+                    {
+                      "device-name": "pe1-TEST",
+                      "interface-type-cisco": "GigabitEthernet",
+                      "gig-interface-name": "0/0/5",
+                      "intf-description": "MyInterfaceDescription",
+                      "ip-address": "8.8.8.8",
+                      "si-description": "MyServiceInstanceDescription",
+                      "vlan-id": 100
+                    },
+                    {
+                      "device-name": "pe2-juniper-mx104-0",
+                      "interface-name-juniper": "ge-0/0/2",
+                      "intf-description": "MyInterfaceDescription",
+                      "ip-address": "172.162.1.4",
+                      "si-description": "MyServiceInstanceDescription",
+                      "vlan-id": 200
+                    },
+                    {
+                      "device-name": "pe3-cisco-asr920-0",
+                      "interface-type-cisco": "GigabitEthernet",
+                      "gig-interface-name": "0/1",
+                      "intf-description": "MyInterfaceDescription",
+                      "ip-address": "195.185.1.2",
+                      "si-description": "MyServiceInstanceDescription",
+                      "vlan-id": 300
+                    }
+                  ]
+                }
+              ]
+        }
+    deleteSingleVlanService: "/l2vpn/customer-xyz-1234"
+    deleteMultipleVlanService: "/l2vpn/BLA-BLA-1234-xyz"
+
+diff:
+  expectedAddMultipleVLan:
+    iosdevice1:
+      vpls: |
+        bridge-domain 400
+         member vfi BLA-BLA-1234-xyz
+         member GigabitEthernet0/0/5 service-instance 300
+        !
+        interface GigabitEthernet0/0/5
+         service instance 300 ethernet
+          description Link from VPLS for service BLA-BLA-1234-xyz: MyServiceInstanceDescription
+          encapsulation dot1q 100
+          rewrite ingress tag pop 1 symmetric
+         exit
+        l2vpn vfi context BLA-BLA-1234-xyz
+         vpn id 400
+         member 172.162.1.4 encapsulation mpls
+         member 195.185.1.2 encapsulation mpls
+        !
+    iosdevice2:
+      vpls: |
+        bridge-domain 400
+         member vfi BLA-BLA-1234-xyz
+         member GigabitEthernet0/1 service-instance 300
+        !
+        interface GigabitEthernet0/1
+         service instance 300 ethernet
+           description Link from VPLS for service BLA-BLA-1234-xyz: MyServiceInstanceDescription
+           encapsulation dot1q 300
+           rewrite ingress tag pop 1 symmetric
+          exit
+         exit
+        l2vpn vfi context BLA-BLA-1234-xyz
+         vpn id 400
+         member 8.8.8.8 encapsulation mpls
+         member 172.162.1.4 encapsulation mpls
+        !
+  expectedAddSingleVLan:
+    iosdevice1:
+      vpls: |
+        bridge-domain 400
+         member vfi customer-xyz-1234
+         member GigabitEthernet0/0/5 service-instance 300
+        !
+        interface GigabitEthernet0/0/5
+         service instance 300 ethernet
+          description Link from VPLS for service customer-xyz-1234: MyServiceInstanceDescription
+          encapsulation dot1q 100
+         exit
+        l2vpn vfi context customer-xyz-1234
+         vpn id 400
+         member 195.185.1.2 encapsulation mpls
+         member 172.162.1.4 encapsulation mpls
+        !
+    iosdevice2:
+      vpls: |
+        bridge-domain 400
+         member vfi customer-xyz-1234
+         member GigabitEthernet0/1 service-instance 300
+        !
+        interface GigabitEthernet0/1
+         service instance 300 ethernet
+           description Link from VPLS for service customer-xyz-1234: MyServiceInstanceDescription
+           encapsulation dot1q 100
+          exit
+         exit
+        l2vpn vfi context customer-xyz-1234
+         vpn id 400
+         member 8.8.8.8 encapsulation mpls
+         member 172.162.1.4 encapsulation mpls
+        !
+
+
+negative:
+  vplsOneDeviceExpectedOutput : "too few"
+  invalidIPExpectedOutput : "The provided service IP value [17.16.14.18] does not match the found public ip address in the loopbacks"
+  invalidDeviceExpectedOutput : "error-message"

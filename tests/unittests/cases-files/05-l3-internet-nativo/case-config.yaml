@@ -1,0 +1,492 @@
+#
+restconf_base: /restconf/data
+rest_base: /api/running
+
+# to store the device configs
+testdir: 05-l3-internet-nativo
+
+junos_device: pe2-juniper-mx104-0
+ios_device: pe3-cisco-asr920-0
+
+service:
+  l3:
+    internet:
+      nativo:
+        cisco_ios:
+          p2p_native:
+            static:
+              createPayload: |
+                {
+                  "l3vpninternet:l3vpninternet": [
+                    {
+                      "service-name": "cCUSTOMER-A-nativo-P2P-native-static",
+                      "device-name": "pe3-cisco-asr920-0",
+                      "interface-type-cisco": "GigabitEthernet",
+                      "gig-interface-name": "0/0",
+                      "intf-description": "MYINTERFACEDESC",
+                      "ip1-pe-wan": "11.11.11.11",
+                      "global": "static-global",
+                      "ip2-ce-wan": "33.33.33.33",
+                      "encapsulation-type": "native",
+                      "network-ce": "22.22.22.22",
+                      "network-ce-mask": "255.255.255.252",
+                      "ip-route-phy-interface": "GigabitEthernet0/0/0"
+                    }
+                  ]
+                }
+              deleteService: "/l3vpninternet/cCUSTOMER-A-nativo-P2P-native-static,pe3-cisco-asr920-0"
+            bgp:
+              createPayload: |
+                {
+                  "l3vpninternet:l3vpninternet": [
+                    {
+                      "service-name": "cCUSTOMER-B-nativo-P2P-native-bgp",
+                      "device-name": "pe3-cisco-asr920-0",
+                      "interface-type-cisco": "GigabitEthernet",
+                      "gig-interface-name": "0/1",
+                      "intf-description": "Myservice2InterDesc",
+                      "ip1-pe-wan": "11.11.11.11",
+                      "ip2-ce-wan": "22.22.22.22",
+                      "encapsulation-type": "native",
+                      "global": "bgp-global",
+                      "remote-as-id": 78,
+                      "md5-auth-key": "PROVA",
+                      "remote-private-as": false,
+                      "hold-time": "25",
+                      "local-as-id": "11",
+                      "bgp-filter": "CUST_A",
+                      "bgp-prefix-in": "1.1.1.1/32",
+                      "bgp-prefix-in": "2.2.2.0/24",
+                      "lp": "123",
+                      "comm": "5602:3039"
+                    }
+                  ]
+                }
+              deleteService: "/l3vpninternet/cCUSTOMER-B-nativo-P2P-native-bgp,pe3-cisco-asr920-0"
+          p2p_dot1q:
+            static:
+              createPayload: |
+                {
+                  "l3vpninternet:l3vpninternet": [
+                    {
+                      "service-name": "cCUSTOMER-C-nativo-P2P-dot1q-static",
+                      "device-name": "pe3-cisco-asr920-0",
+                      "interface-type-cisco": "GigabitEthernet",
+                      "gig-interface-name": "0/0/6",
+                      "intf-description": "myInterfaceDescription",
+                      "ip1-pe-wan": "81.81.81.81",
+                      "global": "static-global",
+                      "ip2-ce-wan": "82.82.82.82",
+                      "encapsulation-type": "dot1q",
+                      "unit-id": 89,
+                      "vlan-id": 200,
+                      "network-ce": "83.83.83.83",
+                      "network-ce-mask": "255.255.255.252",
+                      "si-description": "MySIdesc",
+                      "ip-route-phy-interface": "GigabitEthernet0/0/6"
+                    }
+                  ]
+                }
+              deleteService: "/l3vpninternet/cCUSTOMER-C-nativo-P2P-dot1q-static,pe3-cisco-asr920-0"
+            bgp:
+              createPayload: |
+                {
+                  "l3vpninternet:l3vpninternet": [
+                    {
+                      "service-name": "cCUSTOMER-D-nativo-P2P-dot1q-bgp",
+                      "device-name": "pe3-cisco-asr920-0",
+                      "interface-type-cisco": "GigabitEthernet",
+                      "gig-interface-name": "0/1",
+                      "intf-description": "myInterfaceDesc",
+                      "ip1-pe-wan": "99.99.99.99",
+                      "global": "bgp-global",
+                      "ip2-ce-wan": "74.74.74.74",
+                      "encapsulation-type": "dot1q",
+                      "unit-id": 789,
+                      "vlan-id": 234,
+                      "remote-as-id": 78,
+                      "md5-auth-key": "PROVA",
+                      "remote-private-as": false,
+                      "hold-time": "25",
+                      "local-as-id": "11",
+                      "bgp-filter": "CUST_A",
+                      "bgp-prefix-in": "1.1.1.1/32",
+                      "bgp-prefix-in": "2.2.2.0/24",
+                      "lp": "123",
+                      "comm": "5602:3039"
+                    }
+                  ]
+                }
+              deleteService: "/l3vpninternet/cCUSTOMER-D-nativo-P2P-dot1q-bgp,pe3-cisco-asr920-0"
+          p2p_qinq:
+            static:
+              createPayload: |
+                {
+                  "l3vpninternet:l3vpninternet": [
+                    {
+                      "service-name": "cCUSTOMER-E-nativo-P2P-qinq-static",
+                      "device-name": "pe3-cisco-asr920-0",
+                      "interface-type-cisco": "GigabitEthernet",
+                      "gig-interface-name": "0/0/6",
+                      "intf-description": "myInterfaceDescription",
+                      "ip1-pe-wan": "81.81.81.81",
+                      "global": "static-global",
+                      "ip2-ce-wan": "82.82.82.82",
+                      "encapsulation-type": "qinq",
+                      "unit-id": 89,
+                      "s-vlan": 200,
+                      "c-vlan": 200,
+                      "network-ce": "83.83.83.83",
+                      "network-ce-mask": "255.255.255.252",
+                      "si-description": "MySIdesc",
+                      "ip-route-phy-interface": "GigabitEthernet0/0/6"
+                    }
+                  ]
+                }
+              deleteService: "/l3vpninternet/cCUSTOMER-E-nativo-P2P-qinq-static,pe3-cisco-asr920-0"
+            bgp:
+              createPayload: |
+                {
+                  "l3vpninternet:l3vpninternet": [
+                    {
+                      "service-name": "cCUSTOMER-F-nativo-P2P-qinq-bgp",
+                      "device-name": "pe3-cisco-asr920-0",
+                      "interface-type-cisco": "GigabitEthernet",
+                      "gig-interface-name": "0/1",
+                      "intf-description": "myInterfaceDesc",
+                      "ip1-pe-wan": "99.99.99.99",
+                      "global": "bgp-global",
+                      "ip2-ce-wan": "74.74.74.74",
+                      "encapsulation-type": "qinq",
+                      "unit-id": 789,
+                      "s-vlan": 234,
+                      "c-vlan": 234,
+                      "si-description": "MySIDESC",
+                      "remote-as-id": 78,
+                      "md5-auth-key": "PROVA",
+                      "remote-private-as": false,
+                      "hold-time": "25",
+                      "local-as-id": "11",
+                      "bgp-filter": "CUST_A",
+                      "bgp-prefix-in": "1.1.1.1/32",
+                      "bgp-prefix-in": "2.2.2.0/24",
+                      "lp": "123",
+                      "comm": "5602:3039"
+                    }
+                  ]
+                }
+              deleteService: "/l3vpninternet/cCUSTOMER-F-nativo-P2P-qinq-bgp,pe3-cisco-asr920-0"
+        juniper_junos:
+          p2p_native:
+            static:
+              createPayload: |
+                {
+                  "l3vpninternet:l3vpninternet": [
+                    {
+                      "service-name": "jCUSTOMER-A-nativo-P2P-native-static",
+                      "device-name": "pe2-juniper-mx104-0",
+                      "interface-name-juniper": "xe-0/0/0",
+                      "intf-description": "MYINTERFACEDESC",
+                      "ip1-pe-wan": "11.11.11.11",
+                      "global": "static-global",
+                      "ip2-ce-wan": "33.33.33.33",
+                      "encapsulation-type": "native",
+                      "network-ce": "22.22.22.22",
+                      "network-ce-mask": "255.255.255.252"
+                    }
+                  ]
+                }
+              deleteService: "/l3vpninternet/jCUSTOMER-A-nativo-P2P-native-static,pe2-juniper-mx104-0"
+            bgp:
+              createPayload: |
+                {
+                "l3vpninternet:l3vpninternet": [
+                  {
+                    "service-name": "jCUSTOMER-B-nativo-P2P-dot1q-bgp",
+                    "device-name": "pe2-juniper-mx104-0",
+                    "interface-name-juniper": "xe-0/0/0",
+                    "intf-description": "MYINTERFACEDESC",
+                    "ip1-pe-wan": "11.11.11.11",
+                    "global": "bgp-global",
+                    "ip2-ce-wan": "33.33.33.33",
+                    "encapsulation-type": "native",
+                    "remote-as-id": 78,
+                    "md5-auth-key": "PROVA",
+                    "remote-private-as": false,
+                    "hold-time": "25",
+                    "local-as-id": "11",
+                    "bgp-filter": "CUST_A",
+                    "bgp-prefix-in": "1.1.1.1/32",
+                    "bgp-prefix-in": "2.2.2.0/24",
+                    "lp": "123",
+                    "comm": "5602:3039"
+                  }
+                ]
+                }
+              deleteService: "/l3vpninternet/jCUSTOMER-B-nativo-P2P-dot1q-bgp,pe2-juniper-mx104-0"
+          p2p_dot1q:
+            static:
+              createPayload: |
+                {
+                  "l3vpninternet:l3vpninternet": [
+                    {
+                      "service-name": "jCUSTOMER-C-nativo-P2P-native-static",
+                      "device-name": "pe2-juniper-mx104-0",
+                      "interface-name-juniper": "xe-0/0/0",
+                      "intf-description": "MYINTERFACEDESC",
+                      "ip1-pe-wan": "11.11.11.11",
+                      "global": "static-global",
+                      "ip2-ce-wan": "33.33.33.33",
+                      "encapsulation-type": "dot1q",
+                      "unit-id": 89,
+                      "vlan-id": 200,
+                      "network-ce": "22.22.22.22",
+                      "network-ce-mask": "255.255.255.252"
+                    }
+                  ]
+                }
+              deleteService: "/l3vpninternet/jCUSTOMER-C-nativo-P2P-native-static,pe2-juniper-mx104-0"
+            bgp:
+              createPayload: |
+                {
+                "l3vpninternet:l3vpninternet": [
+                  {
+                    "service-name": "jCUSTOMER-D-nativo-P2P-dot1q-bgp",
+                    "device-name": "pe2-juniper-mx104-0",
+                    "interface-name-juniper": "xe-0/0/0",
+                    "intf-description": "MYINTERFACEDESC",
+                    "ip1-pe-wan": "11.11.11.11",
+                    "global": "bgp-global",
+                    "ip2-ce-wan": "33.33.33.33",
+                    "encapsulation-type": "dot1q",
+                    "unit-id": 89,
+                    "vlan-id": 200,
+                    "remote-as-id": 78,
+                    "md5-auth-key": "PROVA",
+                    "remote-private-as": false,
+                    "hold-time": "25",
+                    "local-as-id": "11",
+                    "bgp-filter": "CUST_A",
+                    "bgp-prefix-in": "1.1.1.1/32",
+                    "bgp-prefix-in": "2.2.2.0/24",
+                    "lp": "123",
+                    "comm": "5602:3039"
+                  }
+                ]
+                }
+              deleteService: "/l3vpninternet/jCUSTOMER-D-nativo-P2P-dot1q-bgp,pe2-juniper-mx104-0"
+          p2p_qinq:
+            static:
+              createPayload: |
+                {
+                  "l3vpninternet:l3vpninternet": [
+                    {
+                      "service-name": "jCUSTOMER-E-nativo-P2P-native-static",
+                      "device-name": "pe2-juniper-mx104-0",
+                      "interface-name-juniper": "xe-0/0/0",
+                      "intf-description": "MYINTERFACEDESC",
+                      "ip1-pe-wan": "11.11.11.11",
+                      "global": "static-global",
+                      "ip2-ce-wan": "33.33.33.33",
+                      "encapsulation-type": "qinq",
+                      "unit-id": 89,
+                      "s-vlan": 200,
+                      "c-vlan": 200,
+                      "network-ce": "22.22.22.22",
+                      "network-ce-mask": "255.255.255.252"
+                    }
+                  ]
+                }
+              deleteService: "/l3vpninternet/jCUSTOMER-E-nativo-P2P-native-static,pe2-juniper-mx104-0"
+            bgp:
+              createPayload: |
+                {
+                "l3vpninternet:l3vpninternet": [
+                  {
+                    "service-name": "jCUSTOMER-F-nativo-P2P-dot1q-bgp",
+                    "device-name": "pe2-juniper-mx104-0",
+                    "interface-name-juniper": "xe-0/0/0",
+                    "intf-description": "MYINTERFACEDESC",
+                    "ip1-pe-wan": "11.11.11.11",
+                    "global": "static-global",
+                    "ip2-ce-wan": "33.33.33.33",
+                    "encapsulation-type": "qinq",
+                    "unit-id": 89,
+                    "s-vlan": 200,
+                    "c-vlan": 200,
+                    "remote-as-id": 78,
+                    "md5-auth-key": "PROVA",
+                    "remote-private-as": false,
+                    "hold-time": "25",
+                    "local-as-id": "11",
+                    "bgp-filter": "CUST_A",
+                    "bgp-prefix-in": "1.1.1.1/32",
+                    "bgp-prefix-in": "2.2.2.0/24",
+                    "lp": "123",
+                    "comm": "5602:3039"
+                  }
+                ]
+                }
+              deleteService: "/l3vpninternet/jCUSTOMER-F-nativo-P2P-dot1q-bgp,pe2-juniper-mx104-0"
+        errors:
+          mix_p2p:
+            p2p_native: |
+              {
+                "l3vpninternet:l3vpninternet": [
+                  {
+                    "service-name": "cCUSTOMER-nativo-P2P-native-static",
+                    "device-name": "pe3-cisco-asr920-0",
+                    "interface-type-cisco": "GigabitEthernet",
+                    "gig-interface-name": "0/0",
+                    "intf-description": "MYINTERFACEDESC",
+                    "ip1-pe-wan": "11.11.11.11",
+                    "global": "static-global",
+                    "ip2-ce-wan": "33.33.33.33",
+                    "encapsulation-type": "native",
+                    "network-ce": "22.22.22.22",
+                    "network-ce-mask": "255.255.255.252",
+                    "ip-route-phy-interface": "GigabitEthernet0/0"
+                  }
+                ]
+              }
+            p2p_dot1q: |
+              {
+                "l3vpninternet:l3vpninternet": [
+                  {
+                    "service-name": "cCUSTOMER-nativo-P2P-dot1q-static",
+                    "device-name": "pe3-cisco-asr920-0",
+                    "interface-type-cisco": "GigabitEthernet",
+                    "gig-interface-name": "0/0",
+                    "intf-description": "myInterfaceDescription",
+                    "ip1-pe-wan": "81.81.81.81",
+                    "global": "static-global",
+                    "ip2-ce-wan": "82.82.82.82",
+                    "encapsulation-type": "dot1q",
+                    "unit-id": 89,
+                    "vlan-id": 200,
+                    "network-ce": "83.83.83.83",
+                    "network-ce-mask": "255.255.255.252",
+                    "si-description": "MySIdesc",
+                    "ip-route-phy-interface": "GigabitEthernet0/0"
+                  }
+                ]
+              }
+            deleteServiceA: "/l3vpninternet/cCUSTOMER-nativo-P2P-native-static,pe3-cisco-asr920-0"
+            deleteServiceB: "/l3vpninternet/cCUSTOMER-nativo-P2P-dot1q-static,pe3-cisco-asr920-0"
+          bgp_already_deployed_same_asn:
+            bgp: |
+              {
+                "l3vpninternet:l3vpninternet": [
+                  {
+                    "service-name": "cCUSTOMER-A-nativo-P2P-native-bgp",
+                    "device-name": "pe3-cisco-asr920-0",
+                    "interface-type-cisco": "GigabitEthernet",
+                    "gig-interface-name": "0/0",
+                    "intf-description": "Myservice2InterDesc",
+                    "ip1-pe-wan": "11.11.11.11",
+                    "global": "bgp-global",
+                    "ip2-ce-wan": "11.11.11.12",
+                    "encapsulation-type": "native",
+                    "network-ce": "66.66.66.66",
+                    "network-ce-mask": "255.255.255.252",
+                    "as-pe": 56,
+                    "remote-as-id": 78,
+                    "lan-wan": "44.44.44.44",
+                    "lan-wan-mask": "255.255.255.252"
+                  }
+                ]
+              }
+            new_bgp: |
+              {
+                "l3vpninternet:l3vpninternet": [
+                  {
+                    "service-name": "cCUSTOMER-B-nativo-P2P-native-bgp",
+                    "device-name": "pe3-cisco-asr920-0",
+                    "interface-type-cisco": "GigabitEthernet",
+                    "gig-interface-name": "0/1",
+                    "intf-description": "Myservice2InterDesc",
+                    "ip1-pe-wan": "11.11.11.11",
+                    "global": "bgp-global",
+                    "ip2-ce-wan": "11.11.11.13",
+                    "encapsulation-type": "native",
+                    "network-ce": "77.77.77.77",
+                    "network-ce-mask": "255.255.255.252",
+                    "as-pe": 56,
+                    "remote-as-id": 79,
+                    "lan-wan": "44.44.44.44",
+                    "lan-wan-mask": "255.255.255.252"
+                  }
+                ]
+              }
+            deleteServiceA: "/l3vpninternet/cCUSTOMER-A-nativo-P2P-native-bgp,pe3-cisco-asr920-0"
+            deleteServiceB: "/l3vpninternet/cCUSTOMER-B-nativo-P2P-native-bgp,pe3-cisco-asr920-0"
+          bgp_already_deployed_different_asn:
+            bgp: |
+              {
+                "l3vpninternet:l3vpninternet": [
+                  {
+                    "service-name": "cCUSTOMER-C-nativo-P2P-native-bgp",
+                    "device-name": "pe3-cisco-asr920-0",
+                    "interface-type-cisco": "GigabitEthernet",
+                    "gig-interface-name": "0/0",
+                    "intf-description": "Myservice2InterDesc",
+                    "ip1-pe-wan": "11.11.11.11",
+                    "global": "bgp-global",
+                    "ip2-ce-wan": "11.11.11.12",
+                    "encapsulation-type": "native",
+                    "network-ce": "66.66.66.66",
+                    "network-ce-mask": "255.255.255.252",
+                    "as-pe": 56,
+                    "remote-as-id": 78,
+                    "lan-wan": "44.44.44.44",
+                    "lan-wan-mask": "255.255.255.252"
+                  }
+                ]
+              }
+            new_bgp: |
+              {
+                "l3vpninternet:l3vpninternet": [
+                  {
+                    "service-name": "cCUSTOMER-D-nativo-P2P-native-bgp",
+                    "device-name": "pe3-cisco-asr920-0",
+                    "interface-type-cisco": "GigabitEthernet",
+                    "gig-interface-name": "0/1",
+                    "intf-description": "Myservice2InterDesc",
+                    "ip1-pe-wan": "11.11.11.11",
+                    "global": "bgp-global",
+                    "ip2-ce-wan": "11.11.11.13",
+                    "encapsulation-type": "native",
+                    "network-ce": "77.77.77.77",
+                    "network-ce-mask": "255.255.255.252",
+                    "as-pe": 57,
+                    "remote-as-id": 79,
+                    "lan-wan": "44.44.44.44",
+                    "lan-wan-mask": "255.255.255.252"
+                  }
+                ]
+              }
+            deleteServiceC: "/l3vpninternet/cCUSTOMER-C-nativo-P2P-native-bgp,pe3-cisco-asr920-0"
+            deleteServiceD: "/l3vpninternet/cCUSTOMER-D-nativo-P2P-native-bgp,pe3-cisco-asr920-0"
+
+diff:
+  expectedAdd:
+    l3:
+      internet:
+        nativo:
+          cisco_ios:
+            p2p_native:
+              static: |
+                ip route 22.22.22.22 255.255.255.252 GigabitEthernet0/0/0 33.33.33.33
+                interface GigabitEthernet0/0
+                 description service L3VPN-internet-native for cCUSTOMER-A-nativo-P2P-native-static, MYINTERFACEDESC
+                 ip address 11.11.11.11 255.255.255.252
+                exit
+            #   bgp: |
+            # p2p_dot1q:
+            #   static: |
+            #   bgp: |
+
+negative:
+  mix_p2p: "error-message"
+  # bgp_already_deployed_same_asn: ""
+  bgp_already_deployed_different_asn: "error-message"

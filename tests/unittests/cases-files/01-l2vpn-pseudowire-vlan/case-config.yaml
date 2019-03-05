@@ -1,0 +1,349 @@
+#
+restconf_base: /restconf/data
+rest_base: /api/running
+
+# to store the device configs
+testdir: 01-l2vpn-pseudowire-vlan
+
+junos_device: pe2-juniper-mx104-0
+ios_device: pe3-cisco-asr920-0
+
+service:
+  l2vpn:
+    createPayload:
+      sameSingleVlan: |
+        {
+          "l2vpn:l2vpn": [
+            {
+              "service-name": "customerXTY-2322323",
+              "l2vpn-type": "PseudoWire-EVPL",
+              "pseudowire-type": "Vlan",
+              "pe-devices": [
+                {
+                  "device-name": "pe2-juniper-mx104-0",
+                  "interface-name-juniper": "ge-0/0/1",
+                  "intf-description": "myDemoInterfaceDesc",
+                  "si-unit-id": 11,
+                  "vlan": [
+                    {
+                      "vlan-id": 11
+                    }
+                  ],
+                  "juniper-vc-id": 101,
+                  "interface-mtu": 1500
+                },
+                {
+                  "device-name": "pe3-cisco-asr920-0",
+                  "interface-type-cisco": "GigabitEthernet",
+                  "gig-interface-name": "0/0/1",
+                  "intf-description": "myDemoInterfaceDesc",
+                  "si-unit-id": 11,
+                  "vlan": [
+                    {
+                      "vlan-id": 11
+                    }
+                  ],
+                  "cisco-vc-id": 101,
+                  "interface-mtu": 1500
+                }
+              ]
+            }
+          ]
+        }
+      vlanReWrite: |
+        {
+          "l2vpn:l2vpn": [
+            {
+              "service-name": "customerXTY-2322323",
+              "l2vpn-type": "PseudoWire-EVPL",
+              "pseudowire-type": "Vlan",
+              "pe-devices": [
+                {
+                  "device-name": "pe2-juniper-mx104-0",
+                  "interface-name-juniper": "ge-0/0/1",
+                  "intf-description": "myDemoInterfaceDesc",
+                  "si-unit-id": 11,
+                  "vlan": [
+                    {
+                      "vlan-id": 10
+                    }
+                  ],
+                  "juniper-vc-id": 101,
+                  "interface-mtu": 1500
+                },
+                {
+                  "device-name": "pe3-cisco-asr920-0",
+                  "interface-type-cisco": "GigabitEthernet",
+                  "gig-interface-name": "0/0/1",
+                  "intf-description": "myDemoInterfaceDesc",
+                  "si-unit-id": 11,
+                  "vlan": [
+                    {
+                      "vlan-id": 11
+                    }
+                  ],
+                  "cisco-vc-id": 101,
+                  "interface-mtu": 1500
+                }
+              ]
+            }
+          ]
+        }
+      multipleVlans: |
+        {
+          "l2vpn:l2vpn": [
+            {
+              "service-name": "customerXTY-2322323",
+              "l2vpn-type": "PseudoWire-EVPL",
+              "pseudowire-type": "Vlan",
+              "pe-devices": [
+                {
+                  "device-name": "pe2-juniper-mx104-0",
+                  "interface-name-juniper": "ge-0/0/1",
+                  "intf-description": "myDemoInterfaceDesc",
+                  "si-unit-id": 11,
+                  "vlan": [
+                    {
+                      "vlan-id": 100
+                    },
+                    {
+                      "vlan-id": 200
+                    },
+                    {
+                      "vlan-id": 300
+                    }
+                  ],
+                  "juniper-vc-id": 101,
+                  "interface-mtu": 1500
+                },
+                {
+                  "device-name": "pe3-cisco-asr920-0",
+                  "interface-type-cisco": "GigabitEthernet",
+                  "gig-interface-name": "0/0/1",
+                  "intf-description": "myDemoInterfaceDesc",
+                  "si-unit-id": 11,
+                  "vlan": [
+                    {
+                      "vlan-id": 100
+                    },
+                    {
+                      "vlan-id": 200
+                    },
+                    {
+                      "vlan-id": 300
+                    }
+                  ],
+                  "cisco-vc-id": 101,
+                  "interface-mtu": 1500
+                }
+              ]
+            }
+          ]
+        }
+      DifferentMultipleVlans: |
+        {
+          "l2vpn:l2vpn": [
+            {
+              "service-name": "customerXTY-2322323",
+              "l2vpn-type": "PseudoWire-EVPL",
+              "pseudowire-type": "Vlan",
+              "pe-devices": [
+                {
+                  "device-name": "pe2-juniper-mx104-0",
+                  "interface-name-juniper": "ge-0/0/1",
+                  "intf-description": "myDemoInterfaceDesc",
+                  "si-unit-id": 11,
+                  "vlan": [
+                    {
+                      "vlan-id": 100
+                    },
+                    {
+                      "vlan-id": 200
+                    },
+                    {
+                      "vlan-id": 300
+                    }
+                  ],
+                  "juniper-vc-id": 101,
+                  "interface-mtu": 1500
+                },
+                {
+                  "device-name": "pe3-cisco-asr920-0",
+                  "interface-type-cisco": "GigabitEthernet",
+                  "gig-interface-name": "0/0/1",
+                  "intf-description": "myDemoInterfaceDesc",
+                  "si-unit-id": 11,
+                  "vlan": [
+                    {
+                      "vlan-id": 111
+                    },
+                    {
+                      "vlan-id": 222
+                    },
+                    {
+                      "vlan-id": 333
+                    }
+                  ],
+                  "cisco-vc-id": 101,
+                  "interface-mtu": 1500
+                }
+              ]
+            }
+          ]
+        }
+      invalidIP: |
+        {
+          "l2vpn:l2vpn": [
+            {
+              "service-name": "customerXTY-2322323",
+              "l2vpn-type": "PseudoWire-EVPL",
+              "pseudowire-type": "Vlan",
+              "pe-devices": [
+                {
+                  "device-name": "pe2-juniper-mx104-0",
+                  "interface-name-juniper": "ge-0/0/1",
+                  "intf-description": "myDemoInterfaceDesc",
+                  "si-unit-id": 11,
+                  "vlan": [
+                    {
+                      "vlan-id": 100
+                    },
+                    {
+                      "vlan-id": 200
+                    },
+                    {
+                      "vlan-id": 300
+                    }
+                  ],
+                  "juniper-vc-id": 101,
+                  "interface-mtu": 1500
+                },
+                {
+                  "device-name": "pe3-cisco-asr920-0",
+                  "interface-type-cisco": "GigabitEthernet",
+                  "gig-interface-name": "0/0/1",
+                  "intf-description": "myDemoInterfaceDesc",
+                  "ip-address": "9.9.9.9",
+                  "si-unit-id": 11,
+                  "vlan": [
+                    {
+                      "vlan-id": 111
+                    },
+                    {
+                      "vlan-id": 222
+                    },
+                    {
+                      "vlan-id": 333
+                    }
+                  ],
+                  "cisco-vc-id": 101,
+                  "interface-mtu": 1500
+                }
+              ]
+            }
+          ]
+        }
+      invalidDevice: |
+        {
+          "l2vpn:l2vpn": [
+            {
+              "service-name": "customerXTY-2322323",
+              "l2vpn-type": "PseudoWire-EVPL",
+              "pseudowire-type": "Vlan",
+              "pe-devices": [
+                {
+                  "device-name": "dummyDeviceName",
+                  "interface-name-juniper": "ge-0/0/1",
+                  "intf-description": "myDemoInterfaceDesc",
+                  "si-unit-id": 11,
+                  "vlan": [
+                    {
+                      "vlan-id": 100
+                    },
+                    {
+                      "vlan-id": 200
+                    },
+                    {
+                      "vlan-id": 300
+                    }
+                  ],
+                  "juniper-vc-id": 101,
+                  "interface-mtu": 1500
+                },
+                {
+                  "device-name": "pe3-cisco-asr920-0",
+                  "interface-type-cisco": "GigabitEthernet",
+                  "gig-interface-name": "0/0/1",
+                  "intf-description": "myDemoInterfaceDesc",
+                  "ip-address": "9.9.9.9",
+                  "si-unit-id": 11,
+                  "vlan": [
+                    {
+                      "vlan-id": 111
+                    },
+                    {
+                      "vlan-id": 222
+                    },
+                    {
+                      "vlan-id": 333
+                    }
+                  ],
+                  "cisco-vc-id": 101,
+                  "interface-mtu": 1500
+                }
+              ]
+            }
+          ]
+        }
+    deleteService: "/l2vpn/customerXTY-2322323"
+
+
+
+diff:
+  expectedAdd:
+    ios:
+      no_vlan_rewrite: |
+        interface GigabitEthernet0/0/1
+         description PseudoWire Vlan Mode Link from pe2-juniper-mx104-0 to pe3-cisco-asr920-0 for service customerXTY-2322323 - myDemoInterfaceDesc
+         no keepalive
+         mtu 1500
+         service instance 11 ethernet
+          description xconnect with no vlan rewrite
+          encapsulation dot1q 11
+          xconnect 172.162.1.4 101 encapsulation mpls
+           no mpls control-word
+           !
+         exit
+        exit
+      with_vlan_rewrite: |
+        interface GigabitEthernet0/0/1
+         description PseudoWire Vlan Mode Link from pe2-juniper-mx104-0 to pe3-cisco-asr920-0 for service customerXTY-2322323 - myDemoInterfaceDesc
+         no keepalive
+         mtu 1500
+         service instance 11 ethernet
+          description xconnect with vlan rewrite
+          encapsulation dot1q 11
+          rewrite ingress tag pop 1 symmetric
+          xconnect 172.162.1.4 101 encapsulation mpls
+           no mpls control-word
+           !
+         exit
+        exit
+      multiple_vlans: |
+        interface GigabitEthernet0/0/1
+         description PseudoWire Vlan Mode Link from pe2-juniper-mx104-0 to pe3-cisco-asr920-0 for service customerXTY-2322323 - myDemoInterfaceDesc
+         no keepalive
+         mtu 1500
+         service instance 11 ethernet
+          description xconnect to carry multiple vlans
+          encapsulation dot1q 100,200,300
+          xconnect 172.162.1.4 101 encapsulation mpls
+           no mpls control-word
+           !
+         exit
+        exit
+
+negative:
+  multipleVlansExpectedOutput : "Invalid VLANs. They are not the same for both peDevices. pe2-juniper-mx104-0 using vlans 100,200,300 - pe3-cisco-asr920-0 using vlans 111,222,333"
+  invalidIPExpectedOutput : "The provided service IP value [9.9.9.9] does not match the found public ip address in the loopbacks [195.185.1.2]"
+  invalidDeviceExpectedOutput : "error-message"

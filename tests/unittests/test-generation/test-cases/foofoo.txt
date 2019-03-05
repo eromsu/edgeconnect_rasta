@@ -1,0 +1,3 @@
+# case-name             instance-name
+foo-1-create,            foo-1
+foo-2-create,            foo-22

@@ -1,0 +1,12 @@
+# Variables used within the robot testcase files
+
+#testbed: testbed.yaml
+testbed: testbedLocal.yaml
+
+cfgdir: cases-files
+timeout: 10
+nso: ncs
+cli_style: cisco                                     # CLI style we want to use for NSO (cisco or juniper)
+
+
+foofoo_service_create_uri: /api/running

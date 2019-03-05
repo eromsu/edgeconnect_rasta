@@ -1,0 +1,60 @@
+#
+restconf_base: /restconf/data
+rest_base: /api/running
+
+# to store the device configs
+testdir: 02-l2vpn-pseudowire-portmode
+
+junos_device: pe2-juniper-mx104-0
+ios_device: pe3-cisco-asr920-0
+
+service:
+  l2vpn:
+    createPayload:
+      portmode: |
+        {
+          "l2vpn:l2vpn": [
+            {
+              "service-name": "customerXTY-2322323",
+              "l2vpn-type": "PseudoWire-EVPL",
+              "pseudowire-type": "PortMode",
+              "pe-devices": [
+                {
+                  "device-name": "pe2-juniper-mx104-0",
+                  "interface-name-juniper": "ge-0/0/1",
+                  "intf-description": "myDemoInterfaceDesc",
+                  "juniper-vc-id": 101,
+                  "interface-mtu": 1500
+                },
+                {
+                  "device-name": "pe3-cisco-asr920-0",
+                  "interface-type-cisco": "GigabitEthernet",
+                  "gig-interface-name": "0/0/1",
+                  "intf-description": "myDemoInterfaceDesc",
+                  "cisco-vc-id": 101,
+                  "interface-mtu": 1500
+                }
+              ]
+            }
+          ]
+        }
+    deleteService: "/l2vpn/customerXTY-2322323"
+
+
+
+diff:
+  expectedAdd:
+    ios:
+      portmode: |
+        interface GigabitEthernet0/0/1
+         description PseudoWire Port Mode Link from pe2-juniper-mx104-0 to pe3-cisco-asr920-0 for service customerXTY-2322323 - myDemoInterfaceDesc
+         xconnect 172.162.1.4 101 encapsulation mpls
+          no mpls control-word
+         exit
+         mtu 1500
+        exit
+
+negative:
+  multipleVlansExpectedOutput : "Invalid VLANs. They are not the same for both peDevices. pe2-juniper-mx104-0 using vlans 100,200,300 - pe3-cisco-asr920-0 using vlans 111,222,333"
+  invalidIPExpectedOutput : "The provided service IP value [9.9.9.9] does not match the found public ip address in the loopbacks [195.185.1.2]"
+  invalidDeviceExpectedOutput : "error-message"

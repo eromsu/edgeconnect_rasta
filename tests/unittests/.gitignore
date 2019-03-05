@@ -1,0 +1,9 @@
+**/after
+**/before
+**/ciscoconfdiff
+**/diff
+**/pre
+**/post
+log.html
+output.xml
+report.html
