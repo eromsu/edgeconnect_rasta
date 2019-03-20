@@ -1,3 +1,11 @@
+testbed:
+  tacacs:
+    login_prompt: "sername:"
+    password_prompt: "assword:"
+    username: admin
+  passwords:
+    linux: admin
+
 # TODO: "parametrize" NSO server IP
 devices:
   ncs:
@@ -16,19 +24,18 @@ devices:
         command: ncs_cli -C
       cli:
         protocol: ssh
-        ip: 192.168.0.72
+        ip: nso
         port: 2024
-        command: ssh -oHostKeyAlgorithms=+ssh-dss admin@192.168.0.72 -p 2024
         #command: ssh -oHostKeyAlgorithms=+ssh-dss admin@localhost -p 2024
       restconf:
         protocol: http
-        ip: 192.168.0.72
+        ip: nso
         port: 8080
         username: admin
         password: admin
       rest:
         protocol: http
-        ip: 192.168.0.72
+        ip: nso
         port: 8080
         username: admin
         password: admin

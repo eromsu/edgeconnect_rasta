@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.0.4 (Python 3.6.5 on linux)" generated="20190308 09:53:47.099">
+<suite id="s1" name="01-Common" source="/project/mytest/nsotests/01-common.robot">
+<test id="s1-t1" name="Load initial configs">
+<kw name="Load Topology and connect to devices">
+<tags>
+<tag>setup</tag>
+</tags>
+<kw name="use testbed &quot;${testbed}&quot;" library="ats.robot.pyATSRobot">
+<doc>Load testbed YAML file and instantiate testbed object</doc>
+<status status="PASS" starttime="20190308 09:53:51.008" endtime="20190308 09:53:51.028"></status>
+</kw>
+<kw name="connect to device &quot;${nso}&quot;" library="ats.robot.pyATSRobot">
+<doc>Connect to device connection as defined in testbed.yaml</doc>
+<msg timestamp="20190308 09:53:51.030" level="INFO">Connecting to device 'Device ncs, type nso'</msg>
+<msg timestamp="20190308 09:53:51.030" level="INFO">kwargs: {'via': 'cli', 'init_config_commands': []}</msg>
+<msg timestamp="20190308 09:53:51.254" level="INFO">2019-03-08T09:53:51: %UNICON-INFO: +++ initializing context +++
+
+2019-03-08T09:53:51: %UNICON-INFO: +++ initializing state_machine +++
+
+2019-03-08T09:53:51: %UNICON-INFO: +++ initializing services +++
+
+2019-03-08T09:53:51: %UNICON-INFO: adding service  send   :  &lt;unicon.plugins.generic.service_implementation.Send object at 0x7f6ad409cc50&gt;
+
+2019-03-08T09:53:51: %UNICON-INFO: adding service  sendline   :  &lt;unicon.plugins.generic.service_implementation.Sendline object at 0x7f6ad409ce10&gt;
+
+2019-03-08T09:53:51: %UNICON-INFO: adding service  expect   :  &lt;unicon.plugins.generic.service_implementation.Expect object at 0x7f6ad409ca58&gt;
+
+2019-03-08T09:53:51: %UNICON-INFO: adding service  expect_log   :  &lt;unicon.plugins.generic.service_implementation.ExpectLogging object at 0x7f6ad409cd30&gt;
+
+2019-03-08T09:53:51: %UNICON-INFO: adding service  log_user   :  &lt;unicon.plugins.generic.service_implementation.LogUser object at 0x7f6ad409cc88&gt;
+
+2019-03-08T09:53:51: %UNICON-INFO: adding service  execute   :  &lt;unicon.plugins.confd.service_implementation.Execute object at 0x7f6ad409cb70&gt;
+
+2019-03-08T09:53:51: %UNICON-INFO: adding service  configure   :  &lt;unicon.plugins.confd.service_implementation.Configure object at 0x7f6ad409cdd8&gt;
+
+2019-03-08T09:53:51: %UNICON-INFO: adding service  cli_style   :  &lt;unicon.plugins.confd.service_implementation.CliStyle object at 0x7f6ad409ccc0&gt;
+
+2019-03-08T09:53:51: %UNICON-INFO: adding service  command   :  &lt;unicon.plugins.confd.service_implementation.Command object at 0x7f6ad409cc18&gt;
+
+2019-03-08T09:53:51: %UNICON-INFO: +++ connection to spawn_command: ssh -oHostKeyAlgorithms=+ssh-dss admin@192.168.0.72 -p 2024, id: 140096800769584 +++
+
+2019-03-08T09:53:51: %UNICON-INFO: connection to ncs
+admin@192.168.0.72's password: 
+
+admin connected from 192.168.0.72 using ssh on EUBEBE-M-D2JE
+[?7hadmin@ncs&gt; 
+2019-03-08T09:53:51: %UNICON-INFO: +++ initializing handle +++
+
+2019-03-08T09:53:51: %UNICON-INFO: +++ execute  +++
+
+2019-03-08T09:53:51: %UNICON-INFO: +++ command  +++
+set screen length 0
+[ok][2019-03-08 09:53:51]
+admin@ncs&gt; 
+2019-03-08T09:53:51: %UNICON-INFO: +++ command  +++
+set screen width 0
+[ok][2019-03-08 09:53:51]
+admin@ncs&gt; 
+2019-03-08T09:53:51: %UNICON-INFO: +++ command  +++
+set idle-timeout 0
+[ok][2019-03-08 09:53:51]
+admin@ncs&gt;</msg>
+<status status="PASS" starttime="20190308 09:53:51.029" endtime="20190308 09:53:51.255"></status>
+</kw>
+<kw name="Set NSO cli style to &quot;${cli_style}&quot;" library="rasta_nso">
+<doc>Sets the NSO CLI style to cisco/juniper (nso device $nso)</doc>
+<kw name="set cli style to &quot;${style}&quot; on device &quot;${nso}&quot;" library="RASTA.RastaUniconUtils">
+<doc>Set the CLI style for CLI to 'cisco' or 'juniper' using 'switch cli' command (if needed)</doc>
+<msg timestamp="20190308 09:53:51.276" level="INFO">switch cli
+admin@ncs#</msg>
+<status status="PASS" starttime="20190308 09:53:51.257" endtime="20190308 09:53:51.276"></status>
+</kw>
+<status status="PASS" starttime="20190308 09:53:51.255" endtime="20190308 09:53:51.276"></status>
+</kw>
+<kw name="Run NSO command &quot;show ncs-state version&quot; with expected result &quot;ncs-state version 4.7.1&quot;" library="rasta_nso">
+<doc>Runs a specified command on NSO device ncs (variable needs to be set somewhere)</doc>
+<kw name="execute command &quot;${command}&quot; on device &quot;${nso}&quot;" library="RASTA.RastaUniconUtils">
+<doc>Execute command on a specific device. "device" name is the name from the testbed file</doc>
+<assign>
+<var>${output}</var>
+</assign>
+<msg timestamp="20190308 09:53:51.278" level="INFO">Executing command show ncs-state version on device ncs alias None</msg>
+<msg timestamp="20190308 09:53:51.316" level="INFO">show ncs-state version
+ncs-state version 4.7.1
+admin@ncs#</msg>
+<msg timestamp="20190308 09:53:51.316" level="INFO">${output} = ncs-state version 4.7.1</msg>
+<status status="PASS" starttime="20190308 09:53:51.278" endtime="20190308 09:53:51.316"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${output}</arg>
+<arg>${result}</arg>
+</arguments>
+<status status="PASS" starttime="20190308 09:53:51.317" endtime="20190308 09:53:51.317"></status>
+</kw>
+<status status="PASS" starttime="20190308 09:53:51.277" endtime="20190308 09:53:51.318"></status>
+</kw>
+<status status="PASS" starttime="20190308 09:53:51.007" endtime="20190308 09:53:51.318"></status>
+</kw>
+<status status="PASS" starttime="20190308 09:53:51.005" endtime="20190308 09:53:51.318" critical="yes"></status>
+</test>
+<status status="PASS" starttime="20190308 09:53:47.102" endtime="20190308 09:53:51.319"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0">Critical Tests</stat>
+<stat pass="1" fail="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" id="s1" name="01-Common">01-Common</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

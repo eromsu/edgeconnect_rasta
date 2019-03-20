@@ -5,7 +5,7 @@ Library    RASTA
 
 Resource   rasta.robot
 Variables   config.yaml
-Variables   ./common/case-config.yaml
+#Variables   ./common/case-config.yaml
 
 #Suite Setup    Load Topology and connect to devices
 

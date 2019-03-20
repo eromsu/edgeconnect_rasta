@@ -24,18 +24,18 @@ devices:
         command: ncs_cli -C
       cli:
         protocol: ssh
-        ip: nso
+        ip: 192.168.0.72
         port: 2024
         #command: ssh -oHostKeyAlgorithms=+ssh-dss admin@localhost -p 2024
       restconf:
         protocol: http
-        ip: nso
+        ip: 192.168.0.72
         port: 8080
         username: admin
         password: admin
       rest:
         protocol: http
-        ip: nso
+        ip: 192.168.0.72
         port: 8080
         username: admin
         password: admin
